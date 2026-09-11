@@ -6,37 +6,64 @@ Stage Relay is a progress-tracking skill for large, multi-stage development task
 
 It divides work into development, testing, and acceptance stages while recording goals, progress, test results, and approval status in the project. This allows a new session or agent to continue the work without losing context.
 
-## Install
-
 Requires Node.js and `npx`.
 
-To install for the current project, run this command from the project directory:
+## Codex
+
+### Project installation
+
+Run from the project directory:
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --yes
 ```
 
-When prompted to select agents:
+### Project update
 
-- **Codex:** No additional selection is needed. Codex is included in `Universal (.agents/skills)`.
-- **Claude Code:** Under `Additional agents`, highlight `Claude Code (.claude/skills)`, press `Space` to select it, then press `Enter`.
-
-To install for both without the interactive prompt:
+Run the same command from the project directory to replace the installed skill with the latest version:
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay --agent codex claude-code
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --yes
 ```
 
-To install globally:
+### Global installation
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay --global
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-## Update
+### Global update
 
 ```bash
-npx skills update stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-Add `--global` when updating a global installation.
+## Claude Code
+
+### Project installation
+
+Run from the project directory:
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --yes
+```
+
+### Project update
+
+Run the same command from the project directory to replace the installed skill with the latest version:
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --yes
+```
+
+### Global installation
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --global --yes
+```
+
+### Global update
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --global --yes
+```

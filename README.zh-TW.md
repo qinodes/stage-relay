@@ -6,37 +6,64 @@ Stage Relay 是用於大型、多階段開發任務的進度追蹤 Skill。
 
 它會將任務拆分成可開發、測試與驗收的階段，並把目標、進度、測試結果及驗收狀態記錄在專案中。即使更換 Session 或 Agent，也能依據記錄接續工作，不會遺失開發進度。
 
-## 安裝
+使用前需要安裝 Node.js 與 `npx`。
 
-需要先安裝 Node.js 與 `npx`。
+## Codex
 
-若要安裝到目前專案，請在要使用此 Skill 的專案目錄中執行：
+### 安裝到專案
 
-```bash
-npx skills add qinodes/stage-relay --skill stage-relay
-```
-
-出現 Agent 選擇畫面時：
-
-- **Codex：** 不需要額外選擇，已包含在 `Universal (.agents/skills)`。
-- **Claude Code：** 在 `Additional agents` 中移到 `Claude Code (.claude/skills)`，按 `Space` 勾選，再按 `Enter` 確認。
-
-若要跳過選單並同時安裝給兩者：
+請在要使用此 Skill 的專案目錄中執行：
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay --agent codex claude-code
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --yes
 ```
 
-全域安裝：
+### 更新專案版本
+
+在專案目錄中重新執行相同指令，即會以最新版本覆蓋已安裝的 Skill：
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay --global
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --yes
 ```
 
-## 更新
+### 全域安裝
 
 ```bash
-npx skills update stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-若為全域安裝，更新時加上 `--global`。
+### 更新全域版本
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
+```
+
+## Claude Code
+
+### 安裝到專案
+
+請在要使用此 Skill 的專案目錄中執行：
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --yes
+```
+
+### 更新專案版本
+
+在專案目錄中重新執行相同指令，即會以最新版本覆蓋已安裝的 Skill：
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --yes
+```
+
+### 全域安裝
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --global --yes
+```
+
+### 更新全域版本
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --global --yes
+```

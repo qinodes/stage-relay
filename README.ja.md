@@ -6,37 +6,64 @@ Stage Relayは、大規模かつ複数段階にわたる開発タスクの進捗
 
 タスクを開発・テスト・受け入れ確認の各段階に分け、目標、進捗、テスト結果、承認状況をプロジェクト内に記録します。セッションやAgentが変わっても、進捗を失わずに作業を引き継げます。
 
-## インストール
-
 Node.jsと`npx`が必要です。
 
-現在のプロジェクトにインストールする場合は、このSkillを使用するプロジェクトのディレクトリで実行します。
+## Codex
+
+### プロジェクトにインストール
+
+このSkillを使用するプロジェクトのディレクトリで実行します。
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --yes
 ```
 
-Agentの選択画面が表示された場合：
+### プロジェクト版を更新
 
-- **Codex：** 追加の選択は不要です。`Universal (.agents/skills)`に含まれています。
-- **Claude Code：** `Additional agents`で`Claude Code (.claude/skills)`に移動し、`Space`で選択してから`Enter`で確定します。
-
-選択画面を省略して両方にインストールする場合：
+プロジェクトのディレクトリで同じコマンドを再実行すると、インストール済みのSkillが最新バージョンに置き換わります。
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay --agent codex claude-code
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --yes
 ```
 
-グローバルにインストールする場合：
+### グローバルにインストール
 
 ```bash
-npx skills add qinodes/stage-relay --skill stage-relay --global
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-## 更新
+### グローバル版を更新
 
 ```bash
-npx skills update stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-グローバルインストールを更新する場合は、`--global`を追加してください。
+## Claude Code
+
+### プロジェクトにインストール
+
+このSkillを使用するプロジェクトのディレクトリで実行します。
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --yes
+```
+
+### プロジェクト版を更新
+
+プロジェクトのディレクトリで同じコマンドを再実行すると、インストール済みのSkillが最新バージョンに置き換わります。
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --yes
+```
+
+### グローバルにインストール
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --global --yes
+```
+
+### グローバル版を更新
+
+```bash
+npx skills add qinodes/stage-relay --skill stage-relay --agent claude-code --global --yes
+```
