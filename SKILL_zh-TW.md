@@ -20,18 +20,30 @@ description: 用於大型、多階段的開發任務，需要跨 Session 或 Age
 
 ## 存放位置與任務編號
 
-所有追蹤文件統一存放於 `stage-reley/tasks/`。每個任務使用獨立的三位數流水編號資料夾，主要追蹤文件固定為 `stage-reley/tasks/<編號>/task.md`：
+`stage-reley/` 必須建立在目前的專案根目錄中。若專案是 Git repository，使用 repository root；否則使用使用者所指定專案的根目錄。不得將此目錄建立在全域位置、使用者家目錄、Agent 設定目錄或已安裝的 Skill 目錄中。
+
+每次使用此 Skill 時，確認專案內存在以下結構：
 
 ```text
-stage-reley/
-└── tasks/
-    ├── 001/
-    │   └── task.md
-    ├── 002/
-    │   └── task.md
-    └── 003/
-        └── task.md
+<專案根目錄>/
+└── stage-reley/
+    ├── .gitignore
+    └── tasks/
+        ├── 001/
+        │   └── task.md
+        ├── 002/
+        │   └── task.md
+        └── 003/
+            └── task.md
 ```
+
+自動建立 `stage-reley/.gitignore`，其內容必須只有以下一行，不得加入其他內容：
+
+```gitignore
+*
+```
+
+所有追蹤文件統一存放於專案內的 `stage-reley/tasks/`。每個任務使用獨立的三位數流水編號資料夾，主要追蹤文件固定為 `stage-reley/tasks/<編號>/task.md`。此 Skill 中所有 `stage-reley/...` 路徑都以目前專案根目錄為基準。
 
 建立新任務前，檢查 `stage-reley/tasks/` 並找出現有的最大編號；新任務使用「目前最大編號 + 1」。如果目錄不存在，先建立目錄；如果沒有任何任務，從 `001` 開始。
 
@@ -60,12 +72,13 @@ stage-reley/tasks/004/task.md
 
 新的開發工作符合此 Skill 的使用條件時，必須：
 
-1. 檢查 `stage-reley/tasks/`，取得下一個任務編號。
-2. 建立 `stage-reley/tasks/<編號>/task.md`。
-3. 寫入任務目標，並將 Overall 狀態設為 `開發中`。
-4. 將任務拆成多個可獨立開發、測試及驗收的階段。
-5. 為每個階段記錄名稱、目標、目前狀態、驗收條件、自動測試結果及必要的開發備註。
-6. 開始第一個尚未完成的階段。
+1. 找出目前的專案根目錄，並確認其中已建立 `stage-reley/.gitignore` 與 `stage-reley/tasks/`。
+2. 檢查 `stage-reley/tasks/`，取得下一個任務編號。
+3. 建立 `stage-reley/tasks/<編號>/task.md`。
+4. 寫入任務目標，並將 Overall 狀態設為 `開發中`。
+5. 將任務拆成多個可獨立開發、測試及驗收的階段。
+6. 為每個階段記錄名稱、目標、目前狀態、驗收條件、自動測試結果及必要的開發備註。
+7. 開始第一個尚未完成的階段。
 
 例如目前最大任務為 `012`，新任務必須建立在 `stage-reley/tasks/013/task.md`。
 

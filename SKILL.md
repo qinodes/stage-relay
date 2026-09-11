@@ -20,18 +20,30 @@ Development progress must not exist only in the conversation context. Once a tra
 
 ## Storage Location and Task Numbers
 
-Store all tracking files under `stage-reley/tasks/`. Give each task its own directory with a three-digit sequential number. Its primary tracking file must be `stage-reley/tasks/<number>/task.md`:
+Create `stage-reley/` inside the current project root. Use the Git repository root when the project is a Git repository; otherwise, use the root of the project selected by the user. Never create this directory in a global location, the user's home directory, an agent configuration directory, or the installed skill directory.
+
+Whenever this skill is used, ensure this project-local structure exists:
 
 ```text
-stage-reley/
-└── tasks/
-    ├── 001/
-    │   └── task.md
-    ├── 002/
-    │   └── task.md
-    └── 003/
-        └── task.md
+<project-root>/
+└── stage-reley/
+    ├── .gitignore
+    └── tasks/
+        ├── 001/
+        │   └── task.md
+        ├── 002/
+        │   └── task.md
+        └── 003/
+            └── task.md
 ```
+
+Create `stage-reley/.gitignore` automatically. It must contain exactly this single line and nothing else:
+
+```gitignore
+*
+```
+
+Store all tracking files under the project-local `stage-reley/tasks/`. Give each task its own directory with a three-digit sequential number. Its primary tracking file must be `stage-reley/tasks/<number>/task.md`. Every `stage-reley/...` path in this skill is relative to the current project root.
 
 Before creating a task, inspect `stage-reley/tasks/` and find the highest existing task number. Use “current highest number + 1” for the new task. Create the directory if it does not exist. If there are no tasks, start at `001`.
 
@@ -60,12 +72,13 @@ Always use a three-digit format, such as `001`, `009`, `010`, `099`, or `100`. N
 
 When new development work matches this skill, you must:
 
-1. Inspect `stage-reley/tasks/` and obtain the next task number.
-2. Create `stage-reley/tasks/<number>/task.md`.
-3. Record the task objective and set the Overall status to `In progress`.
-4. Split the task into stages that can each be developed, tested, and accepted independently.
-5. For each stage, record its name, objective, current status, acceptance criteria, automated test results, and necessary development notes.
-6. Start the first unfinished stage.
+1. Locate the current project root and ensure `stage-reley/.gitignore` and `stage-reley/tasks/` exist there.
+2. Inspect `stage-reley/tasks/` and obtain the next task number.
+3. Create `stage-reley/tasks/<number>/task.md`.
+4. Record the task objective and set the Overall status to `In progress`.
+5. Split the task into stages that can each be developed, tested, and accepted independently.
+6. For each stage, record its name, objective, current status, acceptance criteria, automated test results, and necessary development notes.
+7. Start the first unfinished stage.
 
 For example, if the highest task number is `012`, create the new task at `stage-reley/tasks/013/task.md`.
 
