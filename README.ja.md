@@ -16,6 +16,17 @@ Node.jsと`npx`が必要です。
 npx skills add qinodes/stage-relay
 ```
 
+Agentの選択画面が表示された場合：
+
+- **Codex：** 追加の選択は不要です。`Universal (.agents/skills)`に含まれています。
+- **Claude Code：** `Additional agents`で`Claude Code (.claude/skills)`に移動し、`Space`で選択してから`Enter`で確定します。
+
+選択画面を省略して両方にインストールする場合：
+
+```bash
+npx skills add qinodes/stage-relay --agent codex claude-code
+```
+
 グローバルにインストールする場合：
 
 ```bash

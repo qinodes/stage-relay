@@ -16,6 +16,17 @@ To install for the current project, run this command from the project directory:
 npx skills add qinodes/stage-relay
 ```
 
+When prompted to select agents:
+
+- **Codex:** No additional selection is needed. Codex is included in `Universal (.agents/skills)`.
+- **Claude Code:** Under `Additional agents`, highlight `Claude Code (.claude/skills)`, press `Space` to select it, then press `Enter`.
+
+To install for both without the interactive prompt:
+
+```bash
+npx skills add qinodes/stage-relay --agent codex claude-code
+```
+
 To install globally:
 
 ```bash

@@ -16,6 +16,17 @@ Stage Relay 是用於大型、多階段開發任務的進度追蹤 Skill。
 npx skills add qinodes/stage-relay
 ```
 
+出現 Agent 選擇畫面時：
+
+- **Codex：** 不需要額外選擇，已包含在 `Universal (.agents/skills)`。
+- **Claude Code：** 在 `Additional agents` 中移到 `Claude Code (.claude/skills)`，按 `Space` 勾選，再按 `Enter` 確認。
+
+若要跳過選單並同時安裝給兩者：
+
+```bash
+npx skills add qinodes/stage-relay --agent codex claude-code
+```
+
 全域安裝：
 
 ```bash
