@@ -6,7 +6,7 @@ Stage Relay 是用於大型、多階段開發任務的進度追蹤 Skill。
 
 它會將任務拆分成可開發、測試與驗收的階段，並把目標、進度、測試結果及驗收狀態記錄在專案中。即使更換 Session 或 Agent，也能依據記錄接續工作，不會遺失開發進度。
 
-使用前需要安裝 Node.js 與 `npx`。
+使用 `npx` 安裝前，需要先安裝 [Node.js 與 `npx`](NODEJS_SETUP.md)；若直接複製 Skill 檔案則不需要。
 
 ## Codex
 

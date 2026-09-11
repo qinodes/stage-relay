@@ -6,7 +6,7 @@ Stage Relay is a progress-tracking skill for large, multi-stage development task
 
 It divides work into development, testing, and acceptance stages while recording goals, progress, test results, and approval status in the project. This allows a new session or agent to continue the work without losing context.
 
-Requires Node.js and `npx`.
+Installing with `npx` requires [Node.js and `npx`](NODEJS_SETUP.md). They are not required when copying the Skill files manually.
 
 ## Codex
 
