@@ -13,7 +13,7 @@ Requires Node.js and `npx`.
 To install for the current project, run this command from the project directory:
 
 ```bash
-npx skills add qinodes/stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay
 ```
 
 When prompted to select agents:
@@ -24,13 +24,13 @@ When prompted to select agents:
 To install for both without the interactive prompt:
 
 ```bash
-npx skills add qinodes/stage-relay --agent codex claude-code
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex claude-code
 ```
 
 To install globally:
 
 ```bash
-npx skills add qinodes/stage-relay --global
+npx skills add qinodes/stage-relay --skill stage-relay --global
 ```
 
 ## Update

@@ -13,7 +13,7 @@ Node.jsと`npx`が必要です。
 現在のプロジェクトにインストールする場合は、このSkillを使用するプロジェクトのディレクトリで実行します。
 
 ```bash
-npx skills add qinodes/stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay
 ```
 
 Agentの選択画面が表示された場合：
@@ -24,13 +24,13 @@ Agentの選択画面が表示された場合：
 選択画面を省略して両方にインストールする場合：
 
 ```bash
-npx skills add qinodes/stage-relay --agent codex claude-code
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex claude-code
 ```
 
 グローバルにインストールする場合：
 
 ```bash
-npx skills add qinodes/stage-relay --global
+npx skills add qinodes/stage-relay --skill stage-relay --global
 ```
 
 ## 更新

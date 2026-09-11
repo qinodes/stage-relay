@@ -13,7 +13,7 @@ Stage Relay 是用於大型、多階段開發任務的進度追蹤 Skill。
 若要安裝到目前專案，請在要使用此 Skill 的專案目錄中執行：
 
 ```bash
-npx skills add qinodes/stage-relay
+npx skills add qinodes/stage-relay --skill stage-relay
 ```
 
 出現 Agent 選擇畫面時：
@@ -24,13 +24,13 @@ npx skills add qinodes/stage-relay
 若要跳過選單並同時安裝給兩者：
 
 ```bash
-npx skills add qinodes/stage-relay --agent codex claude-code
+npx skills add qinodes/stage-relay --skill stage-relay --agent codex claude-code
 ```
 
 全域安裝：
 
 ```bash
-npx skills add qinodes/stage-relay --global
+npx skills add qinodes/stage-relay --skill stage-relay --global
 ```
 
 ## 更新
