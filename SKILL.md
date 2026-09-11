@@ -1,26 +1,26 @@
 ---
 name: stage-relay
-description: 用於大型、多階段的開發任務，需要跨 Session 或 Agent 持續追蹤進度，支援逐階段驗收或暫緩後集中驗收，並要求各階段通過自動測試與使用者驗收後才能完成。
+description: Use for large, multi-stage development tasks that need persistent progress tracking across sessions or agents, support per-stage or deferred batch acceptance, and require automated testing and user acceptance before completion.
 ---
 
-# 開發任務接力追蹤
+# Development Task Relay Tracking
 
-## 目的
+## Purpose
 
-大型、多階段的開發任務必須使用文件持續記錄：
+Large, multi-stage development tasks must use a file to continuously record:
 
-- 任務的最終目標。
-- 拆分後的各個開發階段。
-- 每個階段目前的開發狀態。
-- 自動測試結果。
-- 使用者驗收狀態。
-- 必要的開發備註。
+- The final task objective.
+- Each development stage created from the task.
+- The current status of every stage.
+- Automated test results.
+- User acceptance status.
+- Necessary development notes.
 
-開發進度不得只存在於對話 Context。建立追蹤文件後，該文件是開發進度的主要依據，讓新的 Session 或 Agent 即使缺少先前的對話內容，也能正確接續工作。
+Development progress must not exist only in the conversation context. Once a tracking file has been created, it is the primary source of progress so that a new session or agent can continue correctly without the earlier conversation.
 
-## 存放位置與任務編號
+## Storage Location and Task Numbers
 
-所有追蹤文件統一存放於 `stage-reley/tasks/`。每個任務使用獨立的三位數流水編號資料夾，主要追蹤文件固定為 `stage-reley/tasks/<編號>/task.md`：
+Store all tracking files under `stage-reley/tasks/`. Give each task its own directory with a three-digit sequential number. Its primary tracking file must be `stage-reley/tasks/<number>/task.md`:
 
 ```text
 stage-reley/
@@ -33,9 +33,9 @@ stage-reley/
         └── task.md
 ```
 
-建立新任務前，檢查 `stage-reley/tasks/` 並找出現有的最大編號；新任務使用「目前最大編號 + 1」。如果目錄不存在，先建立目錄；如果沒有任何任務，從 `001` 開始。
+Before creating a task, inspect `stage-reley/tasks/` and find the highest existing task number. Use “current highest number + 1” for the new task. Create the directory if it does not exist. If there are no tasks, start at `001`.
 
-例如，已有：
+For example, if these tasks exist:
 
 ```text
 stage-reley/tasks/001/
@@ -43,369 +43,369 @@ stage-reley/tasks/002/
 stage-reley/tasks/003/
 ```
 
-新任務必須建立為：
+Create the next task as:
 
 ```text
 stage-reley/tasks/004/task.md
 ```
 
-編號固定使用三位數格式，例如 `001`、`009`、`010`、`099`、`100`。不得：
+Always use a three-digit format, such as `001`, `009`, `010`, `099`, or `100`. Never:
 
-- 重複使用既有編號。
-- 因舊任務完成而重新使用編號。
-- 因任務被刪除而重新排列編號。
-- 修改既有任務的編號。
+- Reuse an existing number.
+- Reuse a number because an older task is complete.
+- Renumber tasks because one was deleted.
+- Change the number of an existing task.
 
-## 建立與拆分任務
+## Creating and Splitting a Task
 
-新的開發工作符合此 Skill 的使用條件時，必須：
+When new development work matches this skill, you must:
 
-1. 檢查 `stage-reley/tasks/`，取得下一個任務編號。
-2. 建立 `stage-reley/tasks/<編號>/task.md`。
-3. 寫入任務目標，並將 Overall 狀態設為 `開發中`。
-4. 將任務拆成多個可獨立開發、測試及驗收的階段。
-5. 為每個階段記錄名稱、目標、目前狀態、驗收條件、自動測試結果及必要的開發備註。
-6. 開始第一個尚未完成的階段。
+1. Inspect `stage-reley/tasks/` and obtain the next task number.
+2. Create `stage-reley/tasks/<number>/task.md`.
+3. Record the task objective and set the Overall status to `In progress`.
+4. Split the task into stages that can each be developed, tested, and accepted independently.
+5. For each stage, record its name, objective, current status, acceptance criteria, automated test results, and necessary development notes.
+6. Start the first unfinished stage.
 
-例如目前最大任務為 `012`，新任務必須建立在 `stage-reley/tasks/013/task.md`。
+For example, if the highest task number is `012`, create the new task at `stage-reley/tasks/013/task.md`.
 
-每個階段都應具備：
+Every stage should have:
 
-- 明確的目標與範圍。
-- 可獨立進行的開發內容。
-- 可執行的相關自動測試。
-- 明確的使用者驗收條件。
+- A clear objective and scope.
+- Development work that can be performed independently.
+- Relevant automated tests that can be run.
+- Clear user acceptance criteria.
 
-避免模糊的階段：
+Avoid vague stages such as:
 
 ```text
-階段一：開發功能
+Stage 1: Develop the feature
 ```
 
-改用可明確判斷是否完成的描述：
+Use a description whose completion can be evaluated clearly:
 
 ```text
-階段一：建立使用者登入 API
+Stage 1: Build the user login API
 
-目標：
-完成登入 API、Token 建立與錯誤處理。
+Objective:
+Complete the login API, token creation, and error handling.
 
-驗收條件：
-- 正確帳號密碼可以登入。
-- 錯誤密碼會回傳錯誤。
-- 登入成功會取得 Token。
+Acceptance criteria:
+- Valid credentials can log in.
+- An incorrect password returns an error.
+- A successful login returns a token.
 ```
 
-## 狀態流程
+## Status Workflow
 
-### Overall 狀態
+### Overall Status
 
-Overall 狀態只允許：
+The Overall status may only be:
 
 ```text
-開發中
-完成
+In progress
+Complete
 ```
 
-新任務預設為 `開發中`。只有所有階段都已進入 `結束`，才能將 Overall 狀態改為 `完成`；仍有任何未完成階段時不得標記為 `完成`。
+A new task starts as `In progress`. Change it to `Complete` only after every stage is `Closed`. Never mark the Overall status as `Complete` while any stage remains unfinished.
 
-### 階段狀態
+### Stage Status
 
-每個階段只能依序使用以下狀態，不得跳過：
+Each stage may only use the following statuses in this order. Do not skip a status:
 
 ```text
-開發中
+In progress
 ↓
-開發完成
+Development complete
 ↓
-自動測試通過
+Automated tests passed
 ↓
-使用者已驗收完成
+User acceptance complete
 ↓
-結束
+Closed
 ```
 
-- `開發中`：正在進行程式碼修改或相關開發工作。
-- `開發完成`：該階段要求的程式碼實作已完成，但尚未確認所有相關自動測試通過，因此不代表階段已完成。
-- `自動測試通過`：已實際執行該階段的相關測試，且全部成功，並已在 `task.md` 記錄測試與結果。
-- `使用者已驗收完成`：自動測試通過後，使用者已明確表示驗收通過；Agent 不得自行假設使用者已驗收。
-- `結束`：只有狀態已是 `使用者已驗收完成` 才能進入，代表該階段正式且完整完成。
+- `In progress`: Code changes or related development work are underway.
+- `Development complete`: The required implementation is finished, but the relevant automated tests have not all been confirmed as passing. This does not mean the stage is complete.
+- `Automated tests passed`: The relevant tests were actually run and all passed, and the tests and results were recorded in `task.md`.
+- `User acceptance complete`: After the automated tests passed, the user explicitly confirmed acceptance. The agent must never assume acceptance.
+- `Closed`: This status is allowed only after `User acceptance complete` and means the stage is formally and fully complete.
 
-每次階段狀態改變，都必須同步更新 `task.md`，不得只在對話中描述：
+Synchronize every stage status change to `task.md`; never report it only in the conversation:
 
 ```text
-開發中 → 開發完成
-開發完成 → 自動測試通過
-自動測試通過 → 使用者已驗收完成
-使用者已驗收完成 → 結束
+In progress → Development complete
+Development complete → Automated tests passed
+Automated tests passed → User acceptance complete
+User acceptance complete → Closed
 ```
 
-符合以下任一條件，才能開始下一個尚未完成的階段：
+You may start the next unfinished stage only when either:
 
-- 目前階段已進入 `結束`。
-- 目前階段為 `自動測試通過`，且使用者已明確選擇暫緩驗收、先繼續下一階段。
+- The current stage is `Closed`.
+- The current stage is `Automated tests passed`, and the user explicitly chooses to defer acceptance and continue to the next stage.
 
-暫緩驗收不會改變目前階段的狀態，也不代表驗收通過或階段結束；必須在 `task.md` 的備註中記錄使用者的決定。若使用者沒有明確表示暫緩，不得自行進入下一階段。
+Deferring acceptance does not change the current stage status and does not mean the stage was accepted or closed. Record the user’s decision in the notes in `task.md`. Do not start the next stage unless the user explicitly chose to defer.
 
-## 自動測試
+## Automated Testing
 
-進入 `自動測試通過` 前，必須實際執行相關測試。只有所有相關測試成功，才可以更新狀態並將結果記錄在 `task.md`。
+Before entering `Automated tests passed`, actually run the relevant tests. Update the status and record the results in `task.md` only when all relevant tests pass.
 
-不得因為以下情況標記為 `自動測試通過`：
+Do not mark a stage as `Automated tests passed` merely because:
 
-- 預期測試應該會成功。
-- 程式碼看起來沒有問題。
-- 沒有實際執行測試。
-- 測試無法執行。
-- 部分測試失敗。
-- 尚未完成測試。
+- The tests are expected to pass.
+- The code appears correct.
+- The tests were not actually run.
+- The tests cannot be run.
+- Some tests failed.
+- Testing is incomplete.
 
-如果測試失敗，不得進入 `自動測試通過`。記錄結果、修正問題並再次執行相關測試，直到相關測試實際全部通過。
+If a test fails, do not enter `Automated tests passed`. Record the results, fix the problem, and rerun the relevant tests until they all actually pass.
 
-## 使用者驗收
+## User Acceptance
 
-自動測試通過不代表階段已完成。階段進入 `自動測試通過` 後，必須告知使用者：
+Passing automated tests does not complete a stage. When a stage reaches `Automated tests passed`, tell the user:
 
-- 此階段完成了什麼。
-- 自動測試結果。
-- 需要驗收哪些內容。
+- What the stage completed.
+- The automated test results.
+- What they need to validate.
 
-驗收內容以 `task.md` 中該階段的驗收條件為主要依據。接著依使用者的明確回覆處理以下三種結果：
+Base validation primarily on the stage’s acceptance criteria in `task.md`. Then handle one of these three outcomes according to the user’s explicit response:
 
-1. **驗收通過**
-   - 將狀態依序更新為 `使用者已驗收完成`、`結束`。
-   - 可以開始下一個尚未完成的階段。
-2. **暫緩驗收**
-   - 保持 `自動測試通過`，不得標記為 `使用者已驗收完成` 或 `結束`。
-   - 在 `task.md` 備註使用者決定暫緩驗收。
-   - 可以先進入下一階段，之後逐一驗收，或等待所有預定階段都通過自動測試後集中驗收。
-3. **回饋問題、驗收失敗或要求修改**
-   - 不得標記為 `使用者已驗收完成`，也不得開始下一個新的階段。
-   - 將有問題的階段恢復為 `開發中`，並在 `task.md` 記錄使用者回報。
-   - 修正問題、重新完成開發並重新執行相關自動測試；不得沿用修改前的測試結果。
-   - 測試全部通過後，再次請使用者選擇驗收通過、暫緩驗收或提供修改回饋。
+1. **Accepted**
+   - Update the status in order to `User acceptance complete`, then `Closed`.
+   - The next unfinished stage may begin.
+2. **Acceptance deferred**
+   - Keep the status as `Automated tests passed`; do not mark it as `User acceptance complete` or `Closed`.
+   - Record the user’s decision to defer acceptance in `task.md`.
+   - The next stage may begin. The user may accept stages individually later or wait until every planned stage has passed automated testing and accept them together.
+3. **Problem reported, acceptance failed, or changes requested**
+   - Do not mark the stage as `User acceptance complete`, and do not start a new next stage.
+   - Return the affected stage to `In progress` and record the user’s feedback in `task.md`.
+   - Fix the problem, complete development again, and rerun the relevant automated tests. Do not reuse test results from before the change.
+   - After every test passes, ask the user again whether they accept, defer acceptance, or have further feedback.
 
-如果使用者同時表示暫緩驗收並回饋需要修正的問題，必須依「回饋問題」處理，不得進入下一階段。Agent 不得把沒有明確決定的回覆視為驗收通過或暫緩驗收。
+If the user both defers acceptance and reports a problem that requires a fix, follow the “Problem reported” branch and do not proceed to the next stage. The agent must not interpret an ambiguous response as either acceptance or a decision to defer.
 
-集中驗收時，彙整所有仍為 `自動測試通過` 的階段、各階段的完成內容、自動測試結果及驗收條件，一次交由使用者確認。使用者可以一次明確驗收全部階段，也可以只驗收其中一部分：
+For batch acceptance, gather every stage still at `Automated tests passed` and present each stage’s completed work, automated test results, and acceptance criteria together. The user may explicitly accept all stages at once or only some of them:
 
-- 明確驗收通過的階段，依序更新為 `使用者已驗收完成`、`結束`。
-- 暫緩或未明確驗收的階段，保持 `自動測試通過`。
-- 回饋有問題的階段，恢復為 `開發中` 並優先修正；修正及重新測試完成前，不得開始新的階段。
+- For each explicitly accepted stage, update the status in order to `User acceptance complete`, then `Closed`.
+- Keep deferred or not explicitly accepted stages at `Automated tests passed`.
+- Return any stage with reported problems to `In progress` and prioritize fixing it. Do not begin a new stage until its fixes and retesting are complete.
 
-## 接續既有任務
+## Resuming an Existing Task
 
-如果使用者要求接續既有任務，例如「繼續 task 013」，開始修改程式碼前必須先讀取 `stage-reley/tasks/013/task.md`，確認：
+If the user asks to resume an existing task, such as “continue task 013,” read `stage-reley/tasks/013/task.md` before modifying code and confirm:
 
-1. 任務目標。
-2. Overall 狀態。
-3. 任務包含哪些階段。
-4. 哪些階段已經結束。
-5. 哪些階段已通過自動測試但暫緩或尚未驗收。
-6. 目前正在進行哪個階段。
-7. 目前階段的狀態。
-8. 目前階段的驗收條件。
-9. 已執行的自動測試。
-10. 開發備註。
+1. The task objective.
+2. The Overall status.
+3. Which stages the task contains.
+4. Which stages are already closed.
+5. Which stages passed automated tests but have deferred or pending acceptance.
+6. Which stage is currently in progress.
+7. The current stage’s status.
+8. The current stage’s acceptance criteria.
+9. Which automated tests have been run.
+10. The development notes.
 
-確認後，從文件記錄的目前狀態接續開發。不得因新的 Session 缺少先前的對話 Context 而：
+Then continue from the state recorded in the file. Do not use the absence of earlier conversation context in a new session as a reason to:
 
-- 重新建立相同任務。
-- 重新開始已完成階段。
-- 忽略既有追蹤文件。
-- 假設之前的工作沒有完成。
+- Create the same task again.
+- Restart a completed stage.
+- Ignore the existing tracking file.
+- Assume earlier work was not completed.
 
-## 狀態不一致時
+## When Recorded and Actual State Differ
 
-如果對話 Context、`task.md`、實際程式碼、Git 狀態或自動測試結果彼此不一致，不得猜測目前進度。依序檢查：
+If the conversation context, `task.md`, actual code, Git state, or automated test results disagree, do not guess the current progress. Inspect, in order:
 
-1. `task.md`。
-2. 實際程式碼。
-3. Git diff / Git history（如果適用）。
-4. 自動測試結果。
+1. `task.md`.
+2. The actual code.
+3. Git diff / Git history, when applicable.
+4. Automated test results.
 
-確認實際狀態後再修正 `task.md`，不得為了符合文件內容而假裝尚未完成的工作已完成。
+After confirming the actual state, correct `task.md`. Never pretend unfinished work is complete merely to make reality match the file.
 
-## 任務追蹤文件範本
+## Task Tracking File Template
 
-建立新的 `task.md` 時，使用以下結構：
+Use this structure when creating a new `task.md`:
 
 ```markdown
-# 開發任務追蹤
+# Development Task Tracking
 
-## 任務目標
+## Task Objective
 
-描述這次大型開發任務最終需要完成的目標。
-
----
-
-## Overall 狀態
-
-開發中
+Describe the final objective of this large development task.
 
 ---
 
-## 階段
+## Overall Status
 
-### 階段一：<階段名稱>
-
-#### 目標
-
-描述此階段需要完成的內容。
-
-#### 狀態
-
-開發中
-
-#### 驗收條件
-
-- 條件一
-- 條件二
-- 條件三
-
-#### 自動測試
-
-尚未執行。
-
-#### 備註
-
-無。
+In progress
 
 ---
 
-### 階段二：<階段名稱>
+## Stages
 
-#### 目標
+### Stage 1: <Stage name>
 
-描述此階段需要完成的內容。
+#### Objective
 
-#### 狀態
+Describe what this stage must complete.
 
-開發中
+#### Status
 
-#### 驗收條件
+In progress
 
-- 條件一
-- 條件二
+#### Acceptance Criteria
 
-#### 自動測試
+- Criterion 1
+- Criterion 2
+- Criterion 3
 
-尚未執行。
+#### Automated Tests
 
-#### 備註
+Not run yet.
 
-無。
+#### Notes
+
+None.
 
 ---
 
-### 階段三：<階段名稱>
+### Stage 2: <Stage name>
 
-#### 目標
+#### Objective
 
-描述此階段需要完成的內容。
+Describe what this stage must complete.
 
-#### 狀態
+#### Status
 
-開發中
+In progress
 
-#### 驗收條件
+#### Acceptance Criteria
 
-- 條件一
-- 條件二
+- Criterion 1
+- Criterion 2
 
-#### 自動測試
+#### Automated Tests
 
-尚未執行。
+Not run yet.
 
-#### 備註
+#### Notes
 
-無。
+None.
+
+---
+
+### Stage 3: <Stage name>
+
+#### Objective
+
+Describe what this stage must complete.
+
+#### Status
+
+In progress
+
+#### Acceptance Criteria
+
+- Criterion 1
+- Criterion 2
+
+#### Automated Tests
+
+Not run yet.
+
+#### Notes
+
+None.
 ```
 
-## 紀錄範例
+## Record Examples
 
-自動測試尚未執行：
+Automated tests not yet run:
 
 ```text
-#### 自動測試
+#### Automated Tests
 
-尚未執行。
+Not run yet.
 ```
 
-測試成功：
+Successful tests:
 
 ```text
-#### 自動測試
+#### Automated Tests
 
-- Unit Tests：PASS
-- Integration Tests：PASS
-- Type Check：PASS
+- Unit Tests: PASS
+- Integration Tests: PASS
+- Type Check: PASS
 ```
 
-測試失敗：
+Failed tests:
 
 ```text
-#### 自動測試
+#### Automated Tests
 
-- Unit Tests：PASS
-- Integration Tests：FAIL
-- Type Check：PASS
+- Unit Tests: PASS
+- Integration Tests: FAIL
+- Type Check: PASS
 
-失敗原因：
-PaymentService integration test 發生 timeout。
+Failure reason:
+The PaymentService integration test timed out.
 
-目前正在修正。
+Currently being fixed.
 ```
 
-存在失敗測試時，不得將階段標記為 `自動測試通過`。
+Do not mark a stage as `Automated tests passed` while any test is failing.
 
-使用者暫緩驗收時：
+When the user defers acceptance:
 
 ```text
-#### 狀態
+#### Status
 
-自動測試通過
+Automated tests passed
 
-#### 備註
+#### Notes
 
-使用者決定暫緩此階段的驗收，先進入下一階段，待所有階段完成後集中驗收。
+The user chose to defer acceptance for this stage, continue to the next stage, and perform batch acceptance after all stages are complete.
 ```
 
-使用者驗收失敗時，例如階段目前為 `自動測試通過`，但使用者回報「登入後重新整理頁面會被登出」，更新為：
+If the stage is `Automated tests passed` but the user reports “Refreshing the page after login signs me out,” update it to:
 
 ```text
-#### 狀態
+#### Status
 
-開發中
+In progress
 
-#### 備註
+#### Notes
 
-使用者驗收失敗。
+User acceptance failed.
 
-問題：
-登入後重新整理頁面會被登出。
+Problem:
+Refreshing the page after login signs me out.
 
-需要修正後重新執行自動測試。
+Fix the problem and rerun the automated tests.
 ```
 
-修正完成後重新進行：
+After the fix, repeat:
 
 ```text
-開發完成
+Development complete
 ↓
-自動測試通過
+Automated tests passed
 ↓
-等待使用者驗收
+Await user acceptance
 ```
 
-## 任務完成與保留
+## Task Completion and Retention
 
-所有階段都為 `結束` 後，將 Overall 狀態從 `開發中` 更新為 `完成`。任務完成後仍不得刪除追蹤文件，例如 `stage-reley/tasks/013/task.md` 必須保留，作為：
+After every stage is `Closed`, change the Overall status from `In progress` to `Complete`. Never delete the tracking file after completion. For example, retain `stage-reley/tasks/013/task.md` as:
 
-- 開發歷史。
-- 任務設計紀錄。
-- 測試紀錄。
-- 使用者驗收紀錄。
-- 後續問題追蹤參考。
+- Development history.
+- A record of task design.
+- A record of testing.
+- A record of user acceptance.
+- A reference for tracking future problems.
 
-後續建立新任務時，繼續使用下一個流水編號。
+Continue using the next sequential number for subsequent tasks.
