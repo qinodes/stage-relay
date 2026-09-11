@@ -8,7 +8,7 @@ Stage Relayは、大規模かつ複数段階にわたる開発タスクの進捗
 
 `npx`でインストールする場合は、事前に[Node.jsと`npx`](NODEJS_SETUP.md)が必要です。Skillファイルを直接コピーする場合は必要ありません。
 
-## Codex
+## 🤖 Codex
 
 ### プロジェクトにインストール
 
@@ -38,7 +38,7 @@ npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --
 npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-## Claude Code
+## 🟠 Claude Code
 
 ### プロジェクトにインストール
 

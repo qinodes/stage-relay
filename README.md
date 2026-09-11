@@ -8,7 +8,7 @@ It divides work into development, testing, and acceptance stages while recording
 
 Installing with `npx` requires [Node.js and `npx`](NODEJS_SETUP.md). They are not required when copying the Skill files manually.
 
-## Codex
+## 🤖 Codex
 
 ### Project installation
 
@@ -38,7 +38,7 @@ npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --
 npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-## Claude Code
+## 🟠 Claude Code
 
 ### Project installation
 

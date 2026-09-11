@@ -8,7 +8,7 @@ Stage Relay 是用於大型、多階段開發任務的進度追蹤 Skill。
 
 使用 `npx` 安裝前，需要先安裝 [Node.js 與 `npx`](NODEJS_SETUP.md)；若直接複製 Skill 檔案則不需要。
 
-## Codex
+## 🤖 Codex
 
 ### 安裝到專案
 
@@ -38,7 +38,7 @@ npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --
 npx skills add qinodes/stage-relay --skill stage-relay --agent codex --global --yes
 ```
 
-## Claude Code
+## 🟠 Claude Code
 
 ### 安裝到專案
 
